@@ -1,0 +1,238 @@
+<html>
+
+<!-- заголовок -->
+<head>
+     <meta charset="utf-8">
+     <title>Example</title>
+</head>
+
+<!-- страница -->
+<body>
+     <!-- подключить библиотеку jQuery (js файл) -->
+     <script src="/css/jquery/jquery-3.0.0.min.js"></script>
+
+     <!-- подключить библиотеку jQuery UI (js файл) -->
+     <script src="/css/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+    
+     <!-- подключить библиотеку jQuery UI (css файл) -->
+     <link rel="stylesheet" href="/css/jquery-ui-1.12.1.custom/jquery-ui.min.css">
+
+
+     <!-- HTML элементы -->
+     <div class="menu">
+        <select id="selector">
+            <option value="all">Все</option>
+            <option value="ufa">Уфа</option>
+            <option value="oth">Другие</option>
+        </select>
+	    <div id="main" class="main"></div>
+	    <div class="main"><button id="submit" class="submit">еще</button></div>
+	</div>
+
+    <button class='opener' id="opener">open the dialog</button>
+    <div id="dialog" title="Купить">
+        <label for="text">ФИО: </label>
+        <input type="text" id="fio">
+        
+        <label for="slider">Количество</label>
+        <input type="text" name="num" class="form-control"  id="num" value='1'>
+        <div id="slider"></div>
+        <label for="display">Цена: </label>
+        <input type="text" id="display">
+        
+        <label for="display1">Итого: </label>
+        <input type="text" id="display1">
+        
+        <label for="date">Дата: </label>
+        <input type="text" class="from-control" id="date">
+        <button class='opener' id='open' value = '1'>Оформить</button> </div>
+    </div>
+    
+    
+    
+    <style>
+    * {
+   box-sizing: border-box;
+}
+.ufa, .oth {
+   width: 300px;
+   text-align: center;
+   margin: 0 auto;
+   border-bottom: 2px solid #F5F5F5;
+   background: white;
+   font-family: "Open Sans";
+   transition: .3s ease-in;
+}
+.ufa:hover, .oth:hover {
+   border-bottom: 2px solid #fc5a5a;
+}
+.ufa img, .oth img{
+   display: block;
+   width: 100%;
+}
+.product-list {
+   background: #fafafa;
+   padding: 15px 0;
+}
+.product-list h3 {
+   font-size: 18px;
+   font-weight: 400;
+   color: #444444;
+   margin: 0 0 10px 0;
+}
+.price {
+   font-size: 16px;
+   color: #fc5a5a;
+   display: block;
+   margin-bottom: 12px;
+}
+.opener {
+   text-decoration: none;
+   display: inline-block;
+   padding: 0 12px;
+   background: #cccccc;
+   color: white;
+   text-transform: uppercase;
+   font-size: 12px;
+   line-height: 28px;
+   transition: .3s ease-in;
+}
+.ufa:hover .opener, .oth:hover .opener {
+   background: #fc5a5a;
+}
+    /*
+    
+    img{
+        object-fit: cover;
+        width: 200px;
+        height: 200px;
+    }
+    .s{
+        width: 250px;
+        height: 400px;
+    }
+    #datepicker, table.ui-datepicker-calendar thead tr th{
+        font-size : 8pt;
+    }
+    .block {
+        display: none;
+        margin: 10px;
+        padding: 10px;
+        border: 2px solid orange;
+    }*/
+    </style>
+    
+
+     <!-- страница открылась -->
+<script>
+$(function() {
+    let tit = [];
+	let img = [];
+	let pri = [];
+	let cit = [];
+    $.getJSON('tov.json', function(data) {
+            for(var i=0;i<6;i++){
+                tit[i] = data.users[i].title;
+			    img[i] = "<img src='" + data.users[i].image + "'>";
+			    pri[i] = data.users[i].text;
+			    cit[i]  = data.users[i].city;
+			    
+                $('#main').append("<p><div class='"+cit[i]+"'  value = '"+ cit[i] +"'>"+
+                "<div class='img'   id='img"    +i+"'>" + img[i] + " </div>"+
+                "<div class='product-list'>" + 
+                "<div class='tit'   id='tit"    +i+"'>" + tit[i] + " </div>"+
+                "<div class='text'  id='text"   +i+"'>" + pri[i] + 
+                "<button class='opener' id='opener" + i + "' value = '" + pri[i] + "'>Купить</button> </div>" + 
+                "</div></div></p>");
+               
+                
+            }
+        });
+});
+
+$(function() {
+	$("#selector").selectmenu({
+	    change: function( event, ui ) {
+	        filterColor($(this).val());
+	    }
+	});
+});
+
+$(function(){
+	$("#date").datepicker({
+		minDate: 0,
+		maxDate: new Date(2021, 5-1, 29),
+		
+	});
+});
+
+
+$("#dialog").dialog({
+	autoOpen: false,
+	resizable: false,
+	draggable: false,
+	//position: "center"
+
+});
+$(".opener").on('click', function() {
+	$("#dialog").dialog("open");
+	$("#display").val($("#display").val() + $(this).val());
+});
+$("body").on('click', '.opener', function() {
+	console.log('here');
+	//$(this).parent().remove();
+	$("#dialog").dialog("open");
+	$("#display").val($(this).val());
+	$("#display1").val($(this).val());
+	return false;
+});
+/* $( "#opener" ).click(function() {
+     $( "#dialog" ).dialog( "open" );
+ });*/
+
+$(function() {
+	$('#slider').slider({
+		range: "min",
+		min: 1,
+		max: 10,
+		step: 1,
+		values: [1],
+		slide: function(event, ui) {
+			$('#num').val(ui.values[0]);
+			$("#display1").val(($("#display").val()) * ($('#num').val()));
+		}
+	});
+
+});
+
+
+
+let active = '';
+/*
+$('#selector').change(function() {
+  filterColor($(this).val());
+})
+*/
+function filterColor(color){
+  const $div = $('.main div');
+  if (color === 'all') {
+    $div.slideDown();
+  } 
+  else if (color === 'ufa') {
+      //$div.slideUp();
+      //$('.ufa').css('display', 'none');
+      $('.ufa').slideDown();
+      $('.oth').slideUp();
+  }
+    else {
+      $('.ufa').slideUp();
+      $('.oth').slideDown();
+  }
+  active = color;
+}
+     </script>
+</body>
+
+</html>
+
+
