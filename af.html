@@ -1,238 +1,257 @@
 <html>
 
 <!-- заголовок -->
+
 <head>
-     <meta charset="utf-8">
-     <title>Example</title>
+	<meta charset="utf-8">
+	<meta http-equiv="Cache-Control" content="no-cache">
+	<title>Глушков А.В.</title>
+	<link type="image/x-icon" rel="shortcut icon" href="/images/okna_icon2.ico">
+	<link type="image/png" sizes="16x16" rel="icon" href="/images/okna_icon16.png">
+	<link type="image/png" sizes="32x32" rel="icon" href="/images/okna_icon32.png">
+	<link type="image/png" sizes="96x96" rel="icon" href="/images/okna_icon96.png">
+	<link type="image/png" sizes="120x120" rel="icon" href="/images/okna_icon120.png">
+	<link type="image/png" sizes="196x196" rel="icon" href="/images/okna_icon196.png">
+	<link type="image/png" sizes="192x192" rel="icon" href="/images/okna_icon192.png">
 </head>
 
 <!-- страница -->
+
 <body>
-     <!-- подключить библиотеку jQuery (js файл) -->
-     <script src="/css/jquery/jquery-3.0.0.min.js"></script>
+	<!-- подключить библиотеку jQuery (js файл) -->
+	<script src="/css/jquery/jquery-3.0.0.min.js"></script>
+	<!-- подключить библиотеку jQuery UI (js файл) -->
+	<script src="/css/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+	<!-- подключить библиотеку jQuery UI (css файл) -->
+	<link rel="stylesheet" href="/css/jquery-ui-1.12.1.custom/jquery-ui.css">
+	<link rel="stylesheet" href="/css/af.css" type="text/css">
 
-     <!-- подключить библиотеку jQuery UI (js файл) -->
-     <script src="/css/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
-    
-     <!-- подключить библиотеку jQuery UI (css файл) -->
-     <link rel="stylesheet" href="/css/jquery-ui-1.12.1.custom/jquery-ui.min.css">
-
-
-     <!-- HTML элементы -->
-     <div class="menu">
-        <select id="selector">
-            <option value="all">Все</option>
-            <option value="ufa">Уфа</option>
-            <option value="oth">Другие</option>
-        </select>
-	    <div id="main" class="main"></div>
-	    <div class="main"><button id="submit" class="submit">еще</button></div>
+	<!-- Страница -->
+	<div class="head">
+		<h1>ЛР4 Афиша</h1></div>
+	<div class="menu">
+	    <div class='sel'>
+	        
+				    <div id="accordion">
+        <h3>Афиша Уфа</h3>
+            <div>
+                <label for="selector">Город:</label><br>
+		            <select id="selector">
+			            <option value="all">Все</option>
+			            <option value="ufa">Уфа</option>
+			            <option value="oth">Другие</option>
+		            </select>
+            </div>
+        </div>
+			
+			
+	        
+		</div>
+		<div id="main" class="main"></div>
+	</div>
+	<div class="footer">© Глушков А.В. ПИ-319</div>
+	<!-- Окошко 1 -->
+	<div id="dialog" title="Купить">
+		<table cellpadding="5" width="100%">
+			<tr>
+				<td colspan="2"><div id="titul"></div></td>
+			</tr><tr>
+				<td><label for="fio">ФИО: </label></td>
+				<td><input type="text" id="fio"></td>
+			</tr><tr>
+				<td><label for="lang">Пол:</label><br>
+		        <td><input type="text" id="lang"/>
+			</tr><tr>
+				<td><label for="slider">Количество</label></td>
+				<td><input type="text" name="num" class="form-control" id="num" value='1'></td>
+			</tr><tr>
+				<td colspan="2"><div id="slider"></div></td>
+			</tr><tr>
+				<td><label for="display">Цена: </label></td>
+				<td><input type="text" id="display"></td>
+			</tr><tr>
+				<td><label for="display1">Итого: </label></td>
+				<td><input type="text" id="display1"></td>
+			</tr><tr>
+				<td><label for="date">Дата: </label></td>
+				<td><input type="text" class="from-control" id="date"></td>
+			</tr>
+		</table>
+		<button class='opn' id='opn' value='1'>Оформить</button>
 	</div>
 
-    <button class='opener' id="opener">open the dialog</button>
-    <div id="dialog" title="Купить">
-        <label for="text">ФИО: </label>
-        <input type="text" id="fio">
-        
-        <label for="slider">Количество</label>
-        <input type="text" name="num" class="form-control"  id="num" value='1'>
-        <div id="slider"></div>
-        <label for="display">Цена: </label>
-        <input type="text" id="display">
-        
-        <label for="display1">Итого: </label>
-        <input type="text" id="display1">
-        
-        <label for="date">Дата: </label>
-        <input type="text" class="from-control" id="date">
-        <button class='opener' id='open' value = '1'>Оформить</button> </div>
-    </div>
-    
-    
-    
-    <style>
-    * {
-   box-sizing: border-box;
-}
-.ufa, .oth {
-   width: 300px;
-   text-align: center;
-   margin: 0 auto;
-   border-bottom: 2px solid #F5F5F5;
-   background: white;
-   font-family: "Open Sans";
-   transition: .3s ease-in;
-}
-.ufa:hover, .oth:hover {
-   border-bottom: 2px solid #fc5a5a;
-}
-.ufa img, .oth img{
-   display: block;
-   width: 100%;
-}
-.product-list {
-   background: #fafafa;
-   padding: 15px 0;
-}
-.product-list h3 {
-   font-size: 18px;
-   font-weight: 400;
-   color: #444444;
-   margin: 0 0 10px 0;
-}
-.price {
-   font-size: 16px;
-   color: #fc5a5a;
-   display: block;
-   margin-bottom: 12px;
-}
-.opener {
-   text-decoration: none;
-   display: inline-block;
-   padding: 0 12px;
-   background: #cccccc;
-   color: white;
-   text-transform: uppercase;
-   font-size: 12px;
-   line-height: 28px;
-   transition: .3s ease-in;
-}
-.ufa:hover .opener, .oth:hover .opener {
-   background: #fc5a5a;
-}
-    /*
-    
-    img{
-        object-fit: cover;
-        width: 200px;
-        height: 200px;
-    }
-    .s{
-        width: 250px;
-        height: 400px;
-    }
-    #datepicker, table.ui-datepicker-calendar thead tr th{
-        font-size : 8pt;
-    }
-    .block {
-        display: none;
-        margin: 10px;
-        padding: 10px;
-        border: 2px solid orange;
-    }*/
-    </style>
-    
+	<!-- Окошко 2 -->
+	<div id="dialog1" title="Ваш заказ оформлен">
+		<table cellpadding="5" width="100%">
+			<tr>
+				<td><label for="text">ФИО: </label></td>
+				<td><div id="fio1"></td>
+			</tr><tr>
+				<td><label for="lang1">Пол: </label></td>
+				<td><div id="lang1"></td>
+			</tr><tr>
+				<td colspan="2"><div id="titul1"></div></td>
+			</tr><tr>
+				<td><label for="date">Дата:</label>
+				<td><div id="date1"></td>
+			</tr><tr>
+				<td><label for="slider">Количество</label></td>
+				<td><div id="num1"></td>
+			</tr><tr>
+				<td><label for="display1">Итого:</label></td>
+				<td><div id="dis1"></td>
+			</tr>
+		</table>
+		<button class='close' id='close' value='1'>ОК</button>
+		</div>
 
-     <!-- страница открылась -->
+
+<!-- Окошко 3 -->
+	<div id="dialog2" title="Аккордеон">
+        
+    </div>
 <script>
 $(function() {
     let tit = [];
-	let img = [];
-	let pri = [];
-	let cit = [];
+    let img = [];
+    let pri = [];
+    let cit = [];
+    
+    //Страница
     $.getJSON('tov.json', function(data) {
-            for(var i=0;i<6;i++){
-                tit[i] = data.users[i].title;
-			    img[i] = "<img src='" + data.users[i].image + "'>";
-			    pri[i] = data.users[i].text;
-			    cit[i]  = data.users[i].city;
-			    
-                $('#main').append("<p><div class='"+cit[i]+"'  value = '"+ cit[i] +"'>"+
-                "<div class='img'   id='img"    +i+"'>" + img[i] + " </div>"+
-                "<div class='product-list'>" + 
-                "<div class='tit'   id='tit"    +i+"'>" + tit[i] + " </div>"+
-                "<div class='text'  id='text"   +i+"'>" + pri[i] + 
-                "<button class='opener' id='opener" + i + "' value = '" + pri[i] + "'>Купить</button> </div>" + 
-                "</div></div></p>");
-               
-                
-            }
-        });
+        for (var i = 0; i < 6; i++) {
+            tit[i] = data.users[i].title;
+            img[i] = data.users[i].image;
+            pri[i] = data.users[i].text;
+            cit[i] = data.users[i].city;
+            console.log(pri[i]);
+            $('#main').append("<p><div class='" + cit[i] + "'  value = '" + cit[i] + "'>" +
+                "<img src='" + img[i] + "'>" +
+                "<div class='product-list'>" +
+                "<h3>" + tit[i] + "</h3>" +
+                "<span class='price'> ₽ " + pri[i] + "</span>" +
+                "<button class='opener' id='opener" + i + "' value = '" + i /*pri[i]*/ + "'>Купить</button>" +
+                "</div> </div> </p>");
+        }
+    });
+    
+    //Окошко 1
+    $("#dialog").dialog();
+    
+    $(".opener").on('click', function() {
+        $("#dialog").dialog("open");
+        $("#display").val($("#display").val() + $(this).val());
+    });
+    
+    $("body").on('click', '.opener', function() {
+        console.log('here');
+        $("#dialog").dialog("open");
+        console.log(tit[1]);
+        $("#display").val(pri[$(this).val()]);
+        $("#display1").val(pri[$(this).val()]);
+        $('#titul').empty();
+        $('#titul').append(tit[$(this).val()]);
+        return false;
+    });
+    
+    //Окошко 2
+    $("#dialog1").dialog();
+    
+    $(".opn").on('click', function() {
+        $("#dialog1").dialog("open");
+    });
+    
+    $(".close").on('click', function() {
+        $("#dialog1").dialog("close");
+        //$(".ui-dialog-buttonpane button:contains('Confirm')").button("disable");
+    });
+    
+    $("body").on('click', '.opn', function() {
+        console.log('here1');
+        $('#fio1').empty();
+        $('#titul1').empty();
+        $('#date1').empty();
+        $('#num1').empty();
+        $('#dis1').empty();
+        $('#lang1').empty();
+        
+        $('#fio1').append($('#fio').val());
+        $('#titul1').append(tit[$(this).val()]);
+        $('#date1').append($('#date').val());
+        $('#num1').append($('#num').val());
+        $('#dis1').append($('#display1').val());
+        $('#lang1').append($('#lang').val());
+        $("#dialog").dialog("close");
+        return false;
+    });
+
+    
+    
+    
+});
+$(function() {
+    /*var langs = ["Java", "JavaScript", "VisualBasic", "PHP", "Pascal"] ;*/
+    $('#lang').autocomplete({
+        /*lookup: ['Java', 'JavaScript', 'PHP', 'Pascal']
+        /*source: langs*/
+        source: ['Мужчина', 'Женщина', 'Ламинат', 'Линолеум']
+    });
+});
+
+
+$(function() {
+    $("#selector").selectmenu({
+        change: function(event, ui) {
+            filterCity($(this).val());
+        }
+    });
+});
+
+$("#date").datepicker({
+    minDate: 0,
+    //maxDate: new Date(2021, 5-1, 29),
 });
 
 $(function() {
-	$("#selector").selectmenu({
-	    change: function( event, ui ) {
-	        filterColor($(this).val());
-	    }
-	});
+    $('#slider').slider({
+        range: "min",
+        min: 1,
+        max: 10,
+        step: 1,
+        values: [1],
+        slide: function(event, ui) {
+            $('#num').val(ui.values[0]);
+            $("#display1").val(($("#display").val()) * ($('#num').val()));
+        }
+    });
 });
-
-$(function(){
-	$("#date").datepicker({
-		minDate: 0,
-		maxDate: new Date(2021, 5-1, 29),
-		
-	});
-});
-
-
-$("#dialog").dialog({
-	autoOpen: false,
-	resizable: false,
-	draggable: false,
-	//position: "center"
-
-});
-$(".opener").on('click', function() {
-	$("#dialog").dialog("open");
-	$("#display").val($("#display").val() + $(this).val());
-});
-$("body").on('click', '.opener', function() {
-	console.log('here');
-	//$(this).parent().remove();
-	$("#dialog").dialog("open");
-	$("#display").val($(this).val());
-	$("#display1").val($(this).val());
-	return false;
-});
-/* $( "#opener" ).click(function() {
-     $( "#dialog" ).dialog( "open" );
- });*/
-
-$(function() {
-	$('#slider').slider({
-		range: "min",
-		min: 1,
-		max: 10,
-		step: 1,
-		values: [1],
-		slide: function(event, ui) {
-			$('#num').val(ui.values[0]);
-			$("#display1").val(($("#display").val()) * ($('#num').val()));
-		}
-	});
-
-});
-
-
 
 let active = '';
-/*
-$('#selector').change(function() {
-  filterColor($(this).val());
-})
-*/
-function filterColor(color){
-  const $div = $('.main div');
-  if (color === 'all') {
-    $div.slideDown();
-  } 
-  else if (color === 'ufa') {
-      //$div.slideUp();
-      //$('.ufa').css('display', 'none');
-      $('.ufa').slideDown();
-      $('.oth').slideUp();
-  }
-    else {
-      $('.ufa').slideUp();
-      $('.oth').slideDown();
-  }
-  active = color;
+
+function filterCity(city) {
+    const $div = $('.main div');
+    if (city === 'all') {
+        $div.slideDown();
+    } else if (city === 'ufa') {
+        $('.ufa').slideDown();
+        $('.oth').slideUp();
+    } else {
+        $('.ufa').slideUp();
+        $('.oth').slideDown();
+    }
+    active = city;
 }
-     </script>
+ $("#dialog2").dialog();
+    
+    $(".aco").on('click', function() {
+        $("#dialog2").dialog("open");
+    });
+
+$(function() {
+	$("#accordion").accordion({
+		collapsible: true
+	});
+});
+</script>
 </body>
-
 </html>
-
-
