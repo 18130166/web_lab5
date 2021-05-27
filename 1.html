@@ -1,0 +1,245 @@
+<html>
+
+<!-- заголовок -->
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="Cache-Control" content="no-cache">
+	<title>Глушков А.В.</title>
+	<link type="image/x-icon" rel="shortcut icon" href="/images/okna_icon2.ico">
+	<link type="image/png" sizes="16x16" rel="icon" href="/images/okna_icon16.png">
+	<link type="image/png" sizes="32x32" rel="icon" href="/images/okna_icon32.png">
+	<link type="image/png" sizes="96x96" rel="icon" href="/images/okna_icon96.png">
+	<link type="image/png" sizes="120x120" rel="icon" href="/images/okna_icon120.png">
+	<link type="image/png" sizes="196x196" rel="icon" href="/images/okna_icon196.png">
+	<link type="image/png" sizes="192x192" rel="icon" href="/images/okna_icon192.png">
+</head>
+
+<!-- страница -->
+
+<style>
+    body {
+    position: relative;
+}
+
+.tab {
+    width: 400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    background-color: white;
+}
+
+.column {
+    display: flex;
+    /*width: 50px;
+    height: 50px;*/
+    align-items: center;
+}
+
+#status {
+    position: absolute;
+    top: 5rem;
+		left: 50%;
+		transform: translateX(-50%);
+    min-width: 400px;
+    margin: 0;
+		text-align: center;
+}
+
+.dice {
+    /*width: 32px;*/
+    width: 50px;
+    height: 50px;
+    float: left;
+    background-color: lightcoral;
+    border: 1px solid black;
+    padding: 10px;
+    font-size: 24px;
+    text-align: center;
+    margin: 5px;
+    border-radius: 5px;
+}
+.tabl {
+    /*width: 32px;*/
+    /*width: 50px;*/
+    width: 90%;
+    min-height: 10px;
+    float: left;
+    background-color: white;
+    padding: 10px;
+    font-size: 24px;
+    text-align: center;
+    margin: 5px;
+}
+.dice-roll {
+    cursor: pointer;
+    text-transform: capitalize;
+}
+</style>
+
+
+<body>
+	<!-- подключить библиотеку jQuery (js файл) -->
+	<script src="/css/jquery/jquery-3.0.0.min.js"></script>
+	<!-- подключить библиотеку jQuery UI (js файл) -->
+	<script src="/css/jquery-ui-1.12.1.custom/jquery-ui.js"></script>
+	<!-- подключить библиотеку jQuery UI (css файл) -->
+	<link rel="stylesheet" href="/css/jquery-ui-1.12.1.custom/jquery-ui.css">
+	<link rel="stylesheet" href="/css/af.css" type="text/css">
+
+	<!-- Страница -->
+	<div class="head"><h1>Кубики</h1></div>
+	<div class="menu">
+        <div id="butt" class="main">
+            <div class="tab">
+                <table cellpadding="5">
+			<tr>
+				<th>Игрок</td>
+				<th>Компьютер</td>
+			</tr>
+			<tr>
+			    <td>
+		    <div class="column">
+				<div id="i1" class="dice">0</div>
+				<div id="i2" class="dice">0</div>
+		    </div>
+		        </td>
+		        <td>
+		    <div class="column">
+				<div id="i3" class="dice">0</div>
+				<div id="i4" class="dice">0</div>
+		    </div>
+		        </td>
+		    </tr>
+		    <tr>
+				
+				<td><h2 id="status1"></h2></td>
+				<td><h2 id="status2"></h2></td>
+
+		</tr>
+		<tr>
+		<td><button type="button" id = 'opn' class="dice-roll">Бросить кубики</button></td>
+		<td><button id='cls' class='cls'>Сдаться</button></td>
+		</tr>
+		     </table>
+		        
+</div>
+            
+        </div>
+		<div id="tab" class="tab">
+		    <table border='1'>
+			<tr>
+				<th width="200">Игрок</td>
+				<th width="200">Компьютер</td>
+			</tr><tr>
+				<td>
+				    <div id="user" class="tabl"></div>
+				</td>
+				<td>
+				    <div id="comp" class="tabl"></div>
+				</td>
+			</tr><tr>
+				<td><div id="user_rez" class="tabl"></div></td>
+		        <td><div id="comp_rez" class="tabl"></div></td>
+			</tr>
+		</table>
+		</div>
+	</div>
+	<div class="footer">© Глушков А.В. ПИ-319</div>
+	<!-- Окошко 1 -->
+	<div id="dialog1" title="!">
+		<div id="rez" class="tabl"></div>
+		<button class='close' id='close'>ОК</button>
+	</div>
+	
+	<div id="dialog2" title="!">
+		<div class="tabl">Вы сдались</div>
+		<button class='close' id='close1'>ОК</button>
+	</div>
+
+<script>
+	var Total1 = 0;
+	var Total2 = 0;
+	var sumTotal1 = 0;
+	var sumTotal2 = 0;
+	var diceTotal1 = 0;
+	var diceTotal2 = 0;
+	$("#dialog1").dialog();
+
+function rand(a) {
+    return side = Math.floor(Math.random() * 6) + 1;;
+}
+
+$(".dice-roll").on('click', function() {
+        let side = [];
+        let n;
+        n=4;
+		for (var i = 0; i < n; i++) {
+		    side[i] = rand(0);
+		}
+
+		diceTotal1 = side[0] + side[1];
+		diceTotal2 = side[2] + side[3];
+		if (sumTotal1 < 6 && sumTotal2 < 6) {
+			if (diceTotal1 > diceTotal2) {
+				Total1 = 1;
+				Total2 = 0;
+				sumTotal1++;
+			}
+			else if (diceTotal1 < diceTotal2) {
+				Total1 = 0;
+				Total2 = 1;
+				sumTotal2++;
+			}
+			else {
+				Total1 = 0;
+				Total2 = 0;
+			}
+
+			$('#i1').text(side[0]);
+			$('#i2').text(side[1]);
+			$('#i3').text(side[2]);
+			$('#i4').text(side[3]);
+			
+			status1.innerHTML = ' ' + diceTotal1;
+			status2.innerHTML = ' ' + diceTotal2;
+			$('#user').append(Total1 + "<br>");
+			$('#comp').append(Total2 + "<br>");
+			$('#user_rez').text(sumTotal1);
+			$('#comp_rez').text(sumTotal2);
+		}
+		else if (sumTotal1 >= 6 || sumTotal2 >= 6) {
+			$("#dialog1").dialog("open");
+			if (sumTotal1 >= 6) {
+				$('#rez').text("Вы победили");
+				//$('#rez1').text("Вы победили");
+			}
+			else if (sumTotal2 >= 6) {
+				$('#rez').text("Вы проиграли");
+				//$('#rez1').text("Вы проиграли");
+			}
+		}
+	});
+
+	$("#dialog2").dialog();
+	$("#cls").on('click', function() {
+		$("#dialog2").dialog("open");
+	});
+	
+		$(".close").on('click', function() {
+		$("#dialog1").dialog("close");
+		$("#dialog2").dialog("close");
+		//$(".ui-dialog-buttonpane button:contains('Confirm')").button("disable");
+		$('#user').text("");
+		$('#comp').text("");
+		$('#user_rez').text("");
+		$('#comp_rez').text("");
+		sumTotal1 = 0;
+		sumTotal2 = 0;
+		Total1 = 0;
+		Total2 = 0;
+	});
+</script>
+</body>
+</html>
